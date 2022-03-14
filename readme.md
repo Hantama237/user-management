@@ -6,7 +6,7 @@ docker-compose exec php-apache /bin/bash
 
 composer install
 
-chown -R www-data:www-data "project foldername"
+chown -R www-data:www-data .
 
 php artisan migrate:fresh
 
