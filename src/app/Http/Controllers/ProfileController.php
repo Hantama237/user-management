@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateProfileRequest;
-
 use App\Interfaces\ProfileRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\AdminRepositoryInterface;
@@ -13,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use File;
+
 class ProfileController extends Controller
 {
     private $profileRepository;

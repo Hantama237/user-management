@@ -19,52 +19,13 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
         $this->profileRepository = $profileRepository;
     }
-    
-    public function index(){
-        return response()->json([
-            'data' => $this->userRepository->getAllUsers()
-        ]);
-    }
-    public function create(Request $req){
-        $validator = Validator::make($req->all(), [
-            "email"=>"required|email",
-            "password"=>"required|string|max:255"
-        ]);
-        if ($validator->fails()) {    
-            return response()->json($validator->messages(), Response::HTTP_BAD_REQUEST);
-        }
-        return response()->json(
-            [
-                'data' => $this->userRepository->createUser($validator->valid())
-            ],
-            Response::HTTP_CREATED
-        );
-    }
-    public function show($id, Request $req){
-        return response()->json([
-            'data' => $this->userRepository->getUserById($id)
-        ]);
-    }
-    public function update($id, Request $req){
-        $validator = Validator::make($req->all(), [
-            "email"=>"email",
-            "password"=>"string|max:255"
-        ]);
-        if ($validator->fails()) {    
-            return response()->json($validator->messages(), Response::HTTP_BAD_REQUEST);
-        }
-        return response()->json([
-            'data' => $this->userRepository->updateUser($id, $validator->valid())
-        ]);
-    }
     public function delete($id, Request $req){
         $profile = $this->userRepository->getProfileByUserId($id);
         $this->profileRepository->deleteProfile($profile->id);
         $this->userRepository->deleteUser($id);
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
-    }   
-
+    } 
     public function showUserWithProfile($id,Request $req){
         $user = $this->userRepository->getUserById($id);
         if(!$user){
